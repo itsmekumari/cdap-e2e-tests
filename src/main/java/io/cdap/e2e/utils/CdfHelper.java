@@ -22,6 +22,7 @@ import io.cdap.e2e.pages.actions.CdfPipelineRunAction;
 import io.cdap.e2e.pages.actions.CdfStudioActions;
 import io.cdap.e2e.pages.locators.CdfGCSLocators;
 import io.cdap.e2e.pages.locators.CdfPipelineRunLocators;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -100,12 +101,12 @@ public interface CdfHelper {
 
   default int recordIn() {
     String incount = CdfPipelineRunLocators.recordsInCount.getText();
-    return Integer.parseInt(incount);
+    return Integer.valueOf(incount.replaceAll(",", StringUtils.EMPTY).toString());
   }
 
   default int recordOut() {
     String outcount = CdfPipelineRunLocators.recordsOutCount.getText();
-    return Integer.parseInt(outcount);
+    return Integer.valueOf(outcount.replaceAll(",", StringUtils.EMPTY).toString());
   }
 
   default void deleteBigQueryTable(String table) throws IOException, InterruptedException {
